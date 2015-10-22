@@ -12,8 +12,11 @@ func main(){
 	*dbinfo = "root:juxienet@tcp(localhost:3306)/test"
 	fmt.Println("input folder is ", *folder)
 	fmt.Println("connecting to ", *dbinfo)
-	
+	/*
 	dbcon := new(DbConnect)
 	dbcon.Connect("root:juxienet@tcp(localhost:3306)/test")
 	dbcon.AddFile("files", "aa/bb", "txt", "hihihihihi")
+*/
+	walk := Walker{*folder}
+	walk.Run()
 }
