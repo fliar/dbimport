@@ -6,17 +6,21 @@ import(
 
 func main(){
 	fmt.Println("mysql import")
-	folder := flag.String("f", "./", "folder holding files to import")
-	dbinfo := flag.String("d", "", "MySQL db connection info")
+	folder := flag.String(
+		"f",
+		"c:/temp/root",
+		"folder holding files to import")
+	dbinfo := flag.String(
+		"d",
+		"user:pass@tcp(192.168.1.114:3306)/test",
+		"MySQL db connection info")
 	flag.Parse()
-	*dbinfo = "root:juxienet@tcp(localhost:3306)/test"
 	fmt.Println("input folder is ", *folder)
 	fmt.Println("connecting to ", *dbinfo)
-	/*
+	
 	dbcon := new(DbConnect)
-	dbcon.Connect("root:juxienet@tcp(localhost:3306)/test")
-	dbcon.AddFile("files", "aa/bb", "txt", "hihihihihi")
-*/
+	dbcon.Connect(*dbinfo)
+	dbcon.AddFile("files", "aa", "txt", "abcdefg")
 	walk := Walker{*folder}
 	walk.Run()
 }
