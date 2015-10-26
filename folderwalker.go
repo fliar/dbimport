@@ -23,7 +23,13 @@ func (w Walker) walk(path string, f os.FileInfo, err error) error {
 		panic(e.Error())
 	}
 	content := string(buf)
-	w.db.AddFile("files", filepath.ToSlash(path), filepath.Ext(path), content)
+	relpath, e := filepath.Rel(w.RootPath, path)
+	if e != nil {
+		fmt.Println("retrieving relative path error: ", e.Error())
+		relpath = path
+	}
+	fmt.Println("relative path: ", relpath)
+	w.db.ReplaceFile("files", filepath.ToSlash(relpath), filepath.Ext(path), content)
 	return err
 }
 

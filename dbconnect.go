@@ -22,9 +22,9 @@ func (w *DbConnect)Connect(info string) {
 	w.db = db
 }
 
-func (w DbConnect)AddFile(tablename, filename, filetype, filecontent string) {
+func (w DbConnect)ReplaceFile(tablename, filename, filetype, filecontent string) {
 	sql := fmt.Sprint(
-		"INSERT INTO `", tablename,
+		"REPLACE INTO `", tablename,
 		"`(`location`,`type`,`content`) VALUES('", filename,
 		"','", filetype,
 		"','", filecontent,
