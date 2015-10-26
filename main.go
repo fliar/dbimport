@@ -20,7 +20,6 @@ func main(){
 	
 	dbcon := new(DbConnect)
 	dbcon.Connect(*dbinfo)
-	dbcon.AddFile("files", "aa", "txt", "abcdefg")
-	walk := Walker{*folder}
+	walk := Walker{*folder, *dbcon}
 	walk.Run()
 }

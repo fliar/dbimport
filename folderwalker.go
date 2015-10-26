@@ -3,14 +3,27 @@ import(
 	"os"
 	"fmt"
 	"path/filepath"
+	"io/ioutil"
 )
 
 type Walker struct {
 	RootPath string
+	db DbConnect
 }
 
 func (w Walker) walk(path string, f os.FileInfo, err error) error {
 	fmt.Println("walking ", path)
+	slashPath := filepath.ToSlash(path)
+	fmt.Println("converted path: ", slashPath)
+	if f.IsDir() {return err}
+	fmt.Println("it is a file")
+	fmt.Println(path, "has an ext called ", filepath.Ext(path))
+	buf, e := ioutil.ReadFile(path)
+	if e != nil {
+		panic(e.Error())
+	}
+	content := string(buf)
+	w.db.AddFile("files", filepath.ToSlash(path), filepath.Ext(path), content)
 	return err
 }
 

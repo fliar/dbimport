@@ -3,7 +3,6 @@ package main
 import(
 	"database/sql"
 	"fmt"
-	"os"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -19,7 +18,6 @@ func (w *DbConnect)Connect(info string) {
 	if err!= nil {
 		fmt.Println("db open failed, param is ", info)
 		panic(err.Error())
-		os.Exit(0)
 	}
 	w.db = db
 }
